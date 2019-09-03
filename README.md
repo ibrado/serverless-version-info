@@ -41,8 +41,11 @@ This plugin supports the following template variables:
 | `branch`     | Current `git` branch                                                      | master
 | `delta`      | Number of untracked, deleted, modified, or renamed files vs latest commit | 2
 | `hash`       | Short hash id of latest commit                                            | c9edfbe
+| `major`      | Major version number                                                      | 1
+| `minor`      | Minor version number                                                      | 2
 | `patch`      | Patch/revision count, i.e. number of commits                              | 15
 | `pkgVersion` | `version` in `package.json`                                               | 1.2.3
+| `stage`      | `process.env.STAGE` or `provider.stage` from `serverless.yml`             | prod
 | `version`    | Semantic version derived from `pkgVersion` and `patch`                    | 1.2.15
 
 These variables can be used in `serverless.yml` by prepending a `$` to them.

@@ -58,13 +58,21 @@ class ServerlessVersionInfo {
           + s.renamed.length;
 
         stats.pkgVersion = pkg.version;
-        stats.version = pkg.version.split('.').slice(0, 2).join('.') + '.' + stats.patch;
+        let ver = pkg.version.split('.') || [];
 
-        let custom = this.serverless.service.custom || {};
+        stats.major = ver[0] || '0';
+        stats.minor = ver[1] || '1';
+        stats.version = ver.slice(0, 2).join('.') + '.' + stats.patch;
+
+        let svc = this.serverless.service;
+
+        stats.stage = process.env.STAGE || svc.provider.stage || 'unknown';
+
+        let custom = svc.custom || {};
         let config = custom['serverless-version-info'] || {};
         let configEnv = config.environment || {};
 
-        let env = this.serverless.service.provider.environment || {};
+        let env = svc.provider.environment || {};
 
         if(!Object.keys(configEnv).length) {
           configEnv[DEFAULT_VARIABLE] = DEFAULT_PATTERN;
