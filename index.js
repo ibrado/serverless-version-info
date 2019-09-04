@@ -61,7 +61,7 @@ class ServerlessVersionInfo {
         let ver = pkg.version.split('.') || [];
 
         stats.major = ver[0] || '0';
-        stats.minor = ver[1] || '1';
+        stats.minor = ver[1] || '0';
         stats.version = ver.slice(0, 2).join('.') + '.' + stats.patch;
 
         let svc = this.serverless.service;
@@ -90,7 +90,22 @@ class ServerlessVersionInfo {
             return stats[x]
           });
 
-          this.serverless.cli.log('Set '+variable+' to "'+env[variable]+'"');
+          if((typeof config.eval === 'undefined') || config.eval) {
+            let re = /\$([\|\`])(.*?)\1/g;
+            let exp;
+
+            let v = env[variable];
+            do {
+              while(exp = re.exec(v)) {
+                v = v.replace(exp[0], eval(exp[2]));
+              }
+            } while(v.match(re));
+
+            configEnv[variable] = env[variable] = v;
+          }
+
+          if(config.verbose)
+            this.serverless.cli.log('serverless-version-info set '+variable+' to "'+env[variable]+'"');
         }
 
         resolve(stats);

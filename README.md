@@ -26,7 +26,18 @@ By default, this adds a `LAMBDA_VERSION` environment variable. Use this in your 
 Sample output header:
 
 ```
-X-Lambda-Version: 0.0.1-15 (master/c9edfbe+2)
+X-Lambda-Version: 1.2.3-15 (master/c9edfbe+2)
+```
+
+### Options
+
+Two options are supported:
+
+```yaml
+custom:
+  serverless-version-info:
+    eval: true        # (Default: true)  Perform eval()'s, see below
+    verbose: true     # (Default: false) Print the resulting values during deploy
 ```
 
 ### Template variables
@@ -65,6 +76,36 @@ custom:
 ```
 
 If you define custom environment variables, `LAMBDA_VERSION` will *not* be set unless you also specify it in the configuration.
+
+### Expression evaluation
+
+`serverless-version-info` supports basic `eval()` support for expressions bounded by `` $`..` `` or `$|..|`.
+
+> NOTE: Nesting expressions using the same expression delimiters is currently not supported.
+
+```yaml
+custom:
+  serverless-version-info:
+    verbose: true
+    environment:
+      SVI_TEST_1: "$version-$delta ($branch/$hash)"
+      SVI_TEST_2: "$version-$delta $major.$minor ($branch/$hash) [$stage]"
+      SVI_TEST_3: "$major.$`($minor + $patch/10)`"
+      SVI_TEST_4: "$major.$`'${self:provider.stage}' === 'prod' ? '$minor' : '$|$minor+1|'`.$patch"
+```
+
+which results in
+
+```
+Serverless: serverless-version-info set SVI_TEST_1 to "0.1.19-3 (master/c2f466b)"
+Serverless: serverless-version-info set SVI_TEST_2 to "0.1.19-3 0.1 (master/c2f466b) [staging]"
+Serverless: serverless-version-info set SVI_TEST_3 to "0.2.9"
+Serverless: serverless-version-info set SVI_TEST_4 to "0.2.19"
+```
+
+## See also
+
+For general expression support in `serverless.yml`, please check out [serverless-expressions-plugin](https://github.com/ibrado/serverless-expressions-plugin.git).
 
 ## Contribute
 
