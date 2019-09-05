@@ -105,7 +105,7 @@ Serverless: serverless-version-info set SVI_TEST_4 to "0.2.19"
 
 ## See also
 
-For general expression support in `serverless.yml`, please check out [serverless-expressions-plugin](https://github.com/ibrado/serverless-expressions-plugin.git).
+For general expression support in `serverless.yml`, please check out [serverless-eval-plugin](https://github.com/ibrado/serverless-eval-plugin.git).
 
 ## Contribute
 
