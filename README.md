@@ -57,6 +57,7 @@ This plugin supports the following template variables:
 | `patch`      | Patch/revision count, i.e. number of commits                              | 15
 | `pkgVersion` | `version` in `package.json`                                               | 1.2.3
 | `stage`      | `process.env.STAGE` or `provider.stage` from `serverless.yml`             | prod
+| `timestamp`  | Unix/epoch timestamp in milliseconds, also `ts`                           | 1567771125936
 | `version`    | Semantic version derived from `pkgVersion` and `patch`                    | 1.2.15
 
 These variables can be used in `serverless.yml` by prepending a `$` to them.

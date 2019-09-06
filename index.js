@@ -64,6 +64,8 @@ class ServerlessVersionInfo {
         stats.minor = ver[1] || '0';
         stats.version = ver.slice(0, 2).join('.') + '.' + stats.patch;
 
+        stats.ts = stats.timestamp = (new Date()).getTime();
+
         let svc = this.serverless.service;
 
         stats.stage = process.env.STAGE || svc.provider.stage || 'unknown';
