@@ -24,13 +24,17 @@ class ServerlessVersionInfo {
     this.options = options;
 
     this.commands = {
+      'offline': {
+        lifecycleEvents: ['start']
+      },
       deploy: {
         lifecycleEvents: ['functions']
       }
     };
 
     this.hooks = {
-      'before:deploy:functions': this.beforeDeployFunctions.bind(this)
+      'before:deploy:functions': this.beforeDeployFunctions.bind(this),
+      'before:offline:start:init': this.evaluateExpressions.bind(this)
     }
   }
 
