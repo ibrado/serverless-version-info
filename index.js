@@ -33,12 +33,12 @@ class ServerlessVersionInfo {
     };
 
     this.hooks = {
-      'before:deploy:functions': this.beforeDeployFunctions.bind(this),
-      'before:offline:start:init': this.evaluateExpressions.bind(this)
+      'before:deploy:functions': this.setVersionInfo.bind(this),
+      'before:offline:start:init': this.setVersionInfo.bind(this)
     }
   }
 
-  beforeDeployFunctions() {
+  setVersionInfo() {
     return new Promise((resolve, reject) => {
       let stats = {}
 

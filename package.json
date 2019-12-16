@@ -1,6 +1,6 @@
 {
   "name": "serverless-version-info",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Creates an environment variable with git and package version information",
   "main": "index.js",
   "scripts": {
