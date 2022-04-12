@@ -20,6 +20,6 @@
   "author": "Alex Ibrado <alex@ibrado.org>",
   "license": "ISC",
   "dependencies": {
-    "simple-git": "^1.126.0"
+    "simple-git": "^3.5.0"
   }
 }
